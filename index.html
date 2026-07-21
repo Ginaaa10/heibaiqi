@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Othello AI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="title-text">OTHELLO AI</h1>
+        <p class="subtitle" id="subtitle-text">Trí Tuệ Cờ Bàn</p>
+
+        <div id="main-menu" class="menu">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="vi">TIẾNG VIỆT</button>
+                <button class="lang-btn" data-lang="zh">中文</button>
+            </div>
+            <h2 id="menu-select-mode">CHỌN CHẾ ĐỘ</h2>
+            <button id="btn-ai" class="menu-btn">CHƠI VỚI MÁY</button>
+            <button id="btn-online" class="menu-btn online-btn">TRỰC TUYẾN</button>
+            <button id="btn-local" class="menu-btn local-btn">2 NGƯỜI CÙNG MÁY</button>
+            <button id="btn-rules" class="menu-btn rules-btn">LUẬT CHƠI</button>
+        </div>
+
+        <div id="room-menu" class="menu hidden">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="vi">TIẾNG VIỆT</button>
+                <button class="lang-btn" data-lang="zh">中文</button>
+            </div>
+            <h2 id="menu-online-lobby">PHÒNG TRỰC TUYẾN</h2>
+            <div class="room-actions">
+                <button id="btn-create-room" class="menu-btn">TẠO PHÒNG</button>
+                <div class="join-section">
+                    <input type="text" id="room-code-input" placeholder="MÃ PHÒNG..." maxlength="6">
+                    <button id="btn-join-room" class="menu-btn join-btn">THAM GIA</button>
+                </div>
+            </div>
+            <div id="waiting-room" class="hidden">
+                <p id="waiting-text">Đang chờ đối thủ...</p>
+                <div id="room-code-display" class="room-code"></div>
+                <p class="room-hint" id="share-code-text">Chia sẻ mã phòng cho bạn bè</p>
+            </div>
+            <button id="btn-back-menu" class="control-btn">QUAY LẠI</button>
+        </div>
+
+        <div id="game-area" class="hidden">
+            <div class="game-info">
+                <div class="player-info">
+                    <div class="player black-player">
+                        <span class="player-icon black"></span>
+                        <span id="black-name">ĐEN</span>
+                        <span id="black-score" class="score">2</span>
+                    </div>
+                    <div class="player white-player">
+                        <span class="player-icon white"></span>
+                        <span id="white-name">TRẮNG</span>
+                        <span id="white-score" class="score">2</span>
+                    </div>
+                </div>
+                <div id="current-turn" class="turn-indicator">LƯỢC CỦA BẠN</div>
+                <div id="my-color-display" class="my-color hidden"></div>
+                <button id="btn-hint" class="hint-btn">Gợi ý: BẬT</button>
+            </div>
+
+            <div id="board" class="board"></div>
+
+            <div class="game-controls">
+                <button id="btn-restart" class="control-btn">CHƠI LẠI</button>
+                <button id="btn-back-game" class="control-btn">QUAY LẠI</button>
+            </div>
+        </div>
+
+        <div id="rules-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 id="rules-title">LUẬT CHƠI OTHELLO</h2>
+                <div class="rules-content">
+                    <p id="rules-p1"><strong>Mục tiêu:</strong> Dùng quân của mình bao vây quân đối phương để đổi màu chúng.</p>
+                    <ul id="rules-list">
+                        <li>Bàn cờ 8x8 ô vuông.</li>
+                        <li>Hai người chơi: Đen đi trước, Trắng đi sau.</li>
+                        <li>Mỗi nước đi phải đặt quân sao quân đối phương bị bao vây giữa hai quân của mình theo hàng ngang, hàng dọc hoặc đường chéo.</li>
+                        <li>Quân đối phương bị bao vây sẽ được đổi màu.</li>
+                        <li>Có thể đánh nhiều quân cùng lúc.</li>
+                        <li>Không có nước hợp lệ → chuyển lượt.</li>
+                        <li>Trò chơi kết thúc khi cả hai không còn nước đi.</li>
+                    </ul>
+                    <p id="rules-end"><strong>Kết thúc:</strong> Quân nhiều hơn thắng. Bằng nhau → hòa.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
